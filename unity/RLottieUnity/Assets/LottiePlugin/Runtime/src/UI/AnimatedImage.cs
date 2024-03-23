@@ -83,7 +83,7 @@ namespace LottiePlugin.UI
             return _lottieAnimation != null && _rawImage != null;
         }
 
-        public void Play()
+        public void Play(bool resetRenderFrameWhenStopped = true)
         {
             if (!IsInitialized())
             {
@@ -100,12 +100,12 @@ namespace LottiePlugin.UI
                 StopCoroutine(_renderLottieAnimationCoroutine);
             }
             _lottieAnimation.Play();
-            _renderLottieAnimationCoroutine = StartCoroutine(RenderLottieAnimationCoroutine());
+            _renderLottieAnimationCoroutine = StartCoroutine(RenderLottieAnimationCoroutine(resetRenderFrameWhenStopped));
             
             _reservedPlay = false;
         }
 
-        public void Stop()
+        public void Stop(bool resetRenderFrame = true)
         {
             if (!IsInitialized())
             {
@@ -118,7 +118,10 @@ namespace LottiePlugin.UI
                 _renderLottieAnimationCoroutine = null;
             }
             _lottieAnimation.Stop();
-            _lottieAnimation.DrawOneFrame(0);
+            if (resetRenderFrame)
+            {
+                _lottieAnimation.DrawOneFrame(0);
+            }
         }
         internal LottieAnimation CreateIfNeededAndReturnLottieAnimation()
         {
@@ -154,7 +157,7 @@ namespace LottiePlugin.UI
             }
         }
 
-        private IEnumerator RenderLottieAnimationCoroutine()
+        private IEnumerator RenderLottieAnimationCoroutine(bool resetRenderFrameWhenStopped = true)
         {
             while (true)
             {
@@ -164,7 +167,7 @@ namespace LottiePlugin.UI
                     _lottieAnimation.Update(_animationSpeed);
                     if (!_loop && _lottieAnimation.CurrentFrame == _lottieAnimation.TotalFramesCount - 1)
                     {
-                        Stop();
+                        Stop(resetRenderFrameWhenStopped);
                     }
                 }
             }
