@@ -128,6 +128,7 @@ namespace LottiePlugin.UI
         {
             if (_animationJson == null)
             {
+                Debug.Log("animation json is null!");
                 return null;
             }
             if (_rawImage == null)
@@ -136,6 +137,7 @@ namespace LottiePlugin.UI
             }
             if (_rawImage == null)
             {
+                Debug.Log("raw image is null!.");
                 return null;
             }
             if (_lottieAnimation == null)
