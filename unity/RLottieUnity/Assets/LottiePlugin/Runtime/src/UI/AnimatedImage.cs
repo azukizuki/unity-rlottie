@@ -83,10 +83,13 @@ namespace LottiePlugin.UI
 
         public void Play(bool resetRenderFrameWhenStopped = true)
         {
+            Debug.Log($"Initialize {IsInitialized()}");
             if (!IsInitialized())
             {
                 Initialize();
             }
+            Debug.Log($"_lottieAnimation is null {(_lottieAnimation == null)}");
+
 
             if (!isActiveAndEnabled)
             {
