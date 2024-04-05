@@ -140,12 +140,15 @@ namespace LottiePlugin.UI
             }
             if (_lottieAnimation == null)
             {
+                Debug.Log("create lottieanimation.");
                 _lottieAnimation = LottieAnimation.LoadFromJsonData(
                 _animationJson.text,
                 string.Empty,
                 _textureWidth,
                 _textureHeight);
                 _rawImage.texture = _lottieAnimation.Texture;
+                
+                Debug.Log("lottie animation is null? " + (_lottieAnimation == null));
             }
             return _lottieAnimation;
         }
